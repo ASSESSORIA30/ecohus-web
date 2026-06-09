@@ -1,0 +1,247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sage: #8FA68E;
+  --sage-deep: #5F7A5C;
+  --anthracite: #2C2E2D;
+  --bone: #FAFAF7;
+  --bone-2: #F5F2EC;
+  --wood: #C9A876;
+  --stone: #D4CFC4;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  overscroll-behavior: none;
+}
+
+html {
+  scroll-behavior: auto;
+  background-color: var(--bone);
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  background-color: var(--bone);
+  color: var(--anthracite);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #CBD7C0;
+  color: #2C2E2D;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(44, 46, 45, 0.2);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--sage); }
+
+/* Lenis */
+html.lenis,
+html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Reveal lines (SplitType) */
+.reveal-line {
+  overflow: hidden;
+  display: block;
+}
+.reveal-line > span {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+/* Section label */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Primary button — sage */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.95rem 2rem;
+  background: var(--anthracite);
+  color: var(--bone);
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  border: 1px solid var(--anthracite);
+}
+.btn-primary:hover {
+  background: var(--sage-deep);
+  border-color: var(--sage-deep);
+  transform: translateY(-1px);
+}
+
+/* Secondary button — outline */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.95rem 2rem;
+  background: transparent;
+  color: var(--anthracite);
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid rgba(44, 46, 45, 0.2);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  border-color: var(--sage-deep);
+  color: var(--sage-deep);
+  background: rgba(143, 166, 142, 0.06);
+}
+
+/* Link underline animation */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Dark sections */
+.dark-section {
+  background: var(--anthracite);
+  color: var(--bone);
+}
+
+/* Soft borders */
+.border-soft {
+  border-color: rgba(44, 46, 45, 0.08);
+}
+
+/* Image reveal mask */
+.image-mask {
+  clip-path: inset(0 0 100% 0);
+}
+
+/* Number monospace tabular */
+.num-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* WhatsApp button pulse */
+@keyframes whatsapp-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+}
+.whatsapp-pulse {
+  animation: whatsapp-pulse 2.4s ease-in-out infinite;
+}
+
+/* Smooth fade-in for lazy content */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Arch grid (architectural reference) */
+.arch-grid {
+  background-image:
+    linear-gradient(to right, rgba(44, 46, 45, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(44, 46, 45, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* ============================================
+   TIPOGRAFIA EDITORIAL (Fase 1 — premium)
+   ============================================ */
+
+/* Drop cap: primera lletra gran, com en revistes d'arquitectura */
+.dropcap::first-letter {
+  font-size: 3.2em;
+  font-weight: 200;
+  float: left;
+  line-height: 0.85;
+  margin-right: 0.08em;
+  margin-top: 0.1em;
+  color: var(--sage-deep);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Característiques tipogràfiques avançades d'Inter */
+.italic-feature {
+  font-feature-settings: "ss01", "cv11", "cv05";
+  font-style: normal;
+  letter-spacing: -0.04em;
+}
+
+/* Tabular nums per estadístiques */
+.tabular-nums,
+.num-tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Body class quan el preloader està actiu — bloqueja interacció */
+[data-loaded="false"] {
+  pointer-events: none;
+}
+[data-loaded="true"] {
+  pointer-events: auto;
+}
+
+/* Respecte de prefers-reduced-motion en animacions extra */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .whatsapp-pulse { animation: none; }
+}
