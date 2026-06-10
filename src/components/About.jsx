@@ -4,87 +4,43 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
 import { Leaf, Layers, Recycle, Thermometer } from 'lucide-react'
 import { useT } from '../lib/i18n'
-import AnimatedCounter from './AnimatedCounter'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const ICONS = [Thermometer, Layers, Recycle, Leaf]
 
-/**
- * Parser que extreu el número d'una mètrica i el separa del prefix/sufix.
- * "Fins a 70% menys" → { prefix: "Fins a ", num: 70, suffix: "% menys" }
- * "λ = 0,10 W/m·K"   → { prefix: "λ = ", num: 0.10, decimals: 2, suffix: " W/m·K" }
- * "−40% CO₂"         → { prefix: "−", num: 40, suffix: "% CO₂" }
- * "±1,5 °C"          → { prefix: "±", num: 1.5, decimals: 1, suffix: " °C" }
- * "Fins a 70%"       → { prefix: "Fins a ", num: 70, suffix: "%" }
- */
-function parseMetric(str) {
-  // Cerquem el primer número (amb opcional decimal . o ,)
-  const match = str.match(/(\d+(?:[.,]\d+)?)/)
-  if (!match) {
-    return { prefix: str, num: 0, decimals: 0, suffix: '' }
-  }
-  const rawNum = match[1]
-  const decimals = rawNum.includes(',') || rawNum.includes('.')
-    ? rawNum.split(/[.,]/)[1].length
-    : 0
-  const num = parseFloat(rawNum.replace(',', '.'))
-  const idx = match.index
-  const prefix = str.slice(0, idx)
-  const suffix = str.slice(idx + rawNum.length)
-  return { prefix, num, decimals, suffix }
-}
-
 export default function About() {
   const { t, lang } = useT()
   const sectionRef = useRef(null)
   const headingRef = useRef(null)
-  const leadRef = useRef(null)
   const reasonsWrapRef = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading reveal — line + blur in (avançat respecte de fase 1)
       const split = new SplitType(headingRef.current, {
         types: 'lines,words',
         lineClass: 'reveal-line',
       })
-      gsap.set(split.words, { yPercent: 110, filter: 'blur(8px)' })
+      gsap.set(split.words, { yPercent: 110 })
       ScrollTrigger.create({
         trigger: headingRef.current,
-        start: 'top 82%',
+        start: 'top 80%',
         onEnter: () => {
           gsap.to(split.words, {
             yPercent: 0,
-            filter: 'blur(0px)',
-            duration: 1.3,
+            duration: 1.2,
             ease: 'expo.out',
-            stagger: 0.05,
+            stagger: 0.04,
           })
         },
       })
 
-      // Lead paragraph: blur-in subtil
-      if (leadRef.current) {
-        gsap.set(leadRef.current, { opacity: 0, y: 20, filter: 'blur(4px)' })
-        ScrollTrigger.create({
-          trigger: leadRef.current,
-          start: 'top 85%',
-          onEnter: () => {
-            gsap.to(leadRef.current, {
-              opacity: 1, y: 0, filter: 'blur(0px)',
-              duration: 1.2, ease: 'expo.out', delay: 0.2,
-            })
-          },
-        })
-      }
-
       const cards = reasonsWrapRef.current.querySelectorAll('[data-reason]')
       gsap.from(cards, {
         opacity: 0,
-        y: 50,
-        duration: 1,
-        stagger: 0.12,
+        y: 40,
+        duration: 0.9,
+        stagger: 0.1,
         ease: 'expo.out',
         scrollTrigger: {
           trigger: reasonsWrapRef.current,
@@ -109,16 +65,13 @@ export default function About() {
           <div className="col-span-12 md:col-span-8">
             <h2
               ref={headingRef}
-              className="font-display text-display leading-[1.0] tracking-tighter-2 text-anthracite-700"
+              className="font-display text-display leading-[1.0] tracking-tighter-2 text-anthracite-700 font-medium"
             >
-              <span className="font-extralight">{t.about.title}</span>
+              {t.about.title}
               <br />
-              <span className="text-sage-600 italic-feature font-semibold">{t.about.titleEm}</span>
+              <span className="text-sage-600">{t.about.titleEm}</span>
             </h2>
-            <p
-              ref={leadRef}
-              className="mt-7 max-w-2xl text-anthracite-600 text-lg leading-relaxed font-light"
-            >
+            <p className="mt-7 max-w-2xl text-anthracite-600 text-lg leading-relaxed">
               {t.about.lead}
             </p>
           </div>
@@ -127,7 +80,6 @@ export default function About() {
         <div ref={reasonsWrapRef} className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {t.about.reasons.map((reason, i) => {
             const Icon = ICONS[i]
-            const metric = parseMetric(reason.metric)
             return (
               <article
                 key={i}
@@ -148,15 +100,7 @@ export default function About() {
                     <div className="mt-5 pt-5 border-t border-anthracite-700/10 flex items-end justify-between gap-3">
                       <div>
                         <div className="font-display text-2xl md:text-3xl text-sage-700 tracking-tight font-medium num-tabular">
-                          <AnimatedCounter
-                            from={0}
-                            to={metric.num}
-                            decimals={metric.decimals}
-                            prefix={metric.prefix}
-                            suffix={metric.suffix}
-                            duration={2.0}
-                            delay={i * 0.15}
-                          />
+                          {reason.metric}
                         </div>
                         <div className="section-label text-anthracite-500 mt-1">
                           {reason.metricLabel}

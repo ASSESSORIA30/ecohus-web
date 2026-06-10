@@ -4,8 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
 import { ArrowUpRight } from 'lucide-react'
 import { useT } from '../lib/i18n'
-import MagneticButton from './MagneticButton'
-import ScrambleText from './ScrambleText'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -49,11 +47,20 @@ export default function Contact() {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Form submitted:', form)
-    // TODO: Connect to backend (Formspree, Resend, etc.)
-    setSubmitted(true)
+    const data = new FormData(e.currentTarget)
+    try {
+      const res = await fetch('https://formspree.io/f/maqzbprv', {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      })
+      if (!res.ok) throw new Error('Formspree error')
+      setSubmitted(true)
+    } catch (error) {
+      window.location.href = `mailto:hola@ekohushabitat.com?subject=Sol·licitud%20EkoHus&body=${encodeURIComponent(JSON.stringify(form, null, 2))}`
+    }
   }
 
   return (
@@ -95,7 +102,8 @@ export default function Contact() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="border-t border-anthracite-700/10">
+              <form onSubmit={handleSubmit} action="https://formspree.io/f/maqzbprv" method="POST" className="border-t border-anthracite-700/10">
+                <input type="hidden" name="_subject" value="Nova sol·licitud EkoHus Habitat" />
                 <Field data-field name="name" label={t.contact.fields.name} type="text" value={form.name} onChange={handleChange} required />
                 <Field data-field name="email" label={t.contact.fields.email} type="email" value={form.email} onChange={handleChange} required />
                 <Field data-field name="phone" label={t.contact.fields.phone} type="tel" value={form.phone} onChange={handleChange} />
@@ -131,15 +139,13 @@ export default function Contact() {
                 </div>
 
                 <div data-field className="pt-8">
-                  <MagneticButton strength={0.3}>
-                    <button type="submit" className="btn-primary group">
-                      <ScrambleText trigger="hover">{t.contact.fields.send}</ScrambleText>
-                      <ArrowUpRight
-                        size={16}
-                        className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
-                      />
-                    </button>
-                  </MagneticButton>
+                  <button type="submit" className="btn-primary group">
+                    <span>{t.contact.fields.send}</span>
+                    <ArrowUpRight
+                      size={16}
+                      className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
+                    />
+                  </button>
                   <p className="mt-4 text-xs text-anthracite-400 max-w-md">
                     {t.contact.fields.privacy}
                   </p>

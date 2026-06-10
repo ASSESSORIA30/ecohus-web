@@ -4,8 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
 import { ArrowUpRight } from 'lucide-react'
 import { useT } from '../lib/i18n'
-import MagneticButton from './MagneticButton'
-import ScrambleText from './ScrambleText'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -76,21 +74,19 @@ export default function FinalCTA() {
         <p className="mt-7 max-w-xl mx-auto text-base md:text-lg text-bone-100/75 leading-relaxed">
           {t.finalCta.subtitle}
         </p>
-        <MagneticButton strength={0.35}>
-          <button
-            onClick={() => {
-              const target = document.querySelector('#contact')
-              if (window.lenis) window.lenis.scrollTo(target, { offset: -40, duration: 1.6 })
-            }}
-            className="mt-10 group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-sage-500 text-bone-100 font-medium text-sm hover:bg-sage-400 transition-colors"
-          >
-            <ScrambleText trigger="hover">{t.finalCta.cta}</ScrambleText>
-            <ArrowUpRight
-              size={16}
-              className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
-            />
-          </button>
-        </MagneticButton>
+        <button
+          onClick={() => {
+            const target = document.querySelector('#contact')
+            if (window.lenis) window.lenis.scrollTo(target, { offset: -40, duration: 1.6 })
+          }}
+          className="mt-10 group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-sage-500 text-bone-100 font-medium text-sm hover:bg-sage-400 transition-colors"
+        >
+          <span>{t.finalCta.cta}</span>
+          <ArrowUpRight
+            size={16}
+            className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
+          />
+        </button>
       </div>
     </section>
   )

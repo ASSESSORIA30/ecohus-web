@@ -6,19 +6,18 @@ import WhatsAppButton from './components/WhatsAppButton'
 import CookieBanner from './components/CookieBanner'
 import Footer from './components/Footer'
 import Preloader from './components/Preloader'
-import PageTransition from './components/PageTransition'
 
 // Home sections
 import Hero from './components/Hero'
 import About from './components/About'
 import AAC from './components/AAC'
-import CertificationsMarquee from './components/CertificationsMarquee'
 import Projects from './components/Projects'
 import Process from './components/Process'
 import Sustainability from './components/Sustainability'
 import Testimonials from './components/Testimonials'
 import FinalCTA from './components/FinalCTA'
 import Contact from './components/Contact'
+import Calculator from './components/Calculator'
 
 // Legal page
 import Legal from './pages/Legal'
@@ -29,11 +28,11 @@ function Home() {
       <Hero />
       <About />
       <AAC />
-      <CertificationsMarquee />
       <Projects />
       <Process />
       <Sustainability />
       <Testimonials />
+      <Calculator />
       <FinalCTA />
       <Contact />
     </>
@@ -66,7 +65,6 @@ export default function App() {
           <Footer />
           <WhatsAppButton />
           <CookieBanner />
-          <PageTransition />
         </div>
       </SmoothScroll>
     </>

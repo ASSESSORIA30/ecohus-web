@@ -162,3 +162,13 @@ El formulari de contacte actualment fa `console.log()`. Per connectar-lo a un ba
 ---
 
 © 2026 EkoHus Habitat
+
+
+## Deploy a GitHub + Vercel
+
+1. `npm install`
+2. `npm run build`
+3. Puja el projecte a GitHub.
+4. A Vercel: New Project > Import Repository > Framework: Vite > Build command: `npm run build` > Output: `dist`.
+
+La web inclou calculadora, imatge hero WEBP, Formspree, sitemap, robots i llms.txt.

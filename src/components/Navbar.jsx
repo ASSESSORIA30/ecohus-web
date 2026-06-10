@@ -56,6 +56,7 @@ export default function Navbar() {
     { label: t.nav.projects, href: '#projects' },
     { label: t.nav.process, href: '#process' },
     { label: t.nav.sustainability, href: '#sustainability' },
+    { label: t.nav.calculator, href: '#calculator' },
     { label: t.nav.contact, href: '#contact' },
   ]
 
