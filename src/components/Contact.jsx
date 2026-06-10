@@ -4,6 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
 import { ArrowUpRight } from 'lucide-react'
 import { useT } from '../lib/i18n'
+import MagneticButton from './MagneticButton'
+import ScrambleText from './ScrambleText'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -129,13 +131,15 @@ export default function Contact() {
                 </div>
 
                 <div data-field className="pt-8">
-                  <button type="submit" className="btn-primary group">
-                    <span>{t.contact.fields.send}</span>
-                    <ArrowUpRight
-                      size={16}
-                      className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
-                    />
-                  </button>
+                  <MagneticButton strength={0.3}>
+                    <button type="submit" className="btn-primary group">
+                      <ScrambleText trigger="hover">{t.contact.fields.send}</ScrambleText>
+                      <ArrowUpRight
+                        size={16}
+                        className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
+                      />
+                    </button>
+                  </MagneticButton>
                   <p className="mt-4 text-xs text-anthracite-400 max-w-md">
                     {t.contact.fields.privacy}
                   </p>

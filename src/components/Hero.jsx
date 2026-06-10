@@ -4,6 +4,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { useT } from '../lib/i18n'
+import MagneticButton from './MagneticButton'
+import ScrambleText from './ScrambleText'
+import AnimatedCounter from './AnimatedCounter'
 
 // Lazy import del 3D — només es carrega quan és necessari
 const HouseModel3D = lazy(() => import('./HouseModel3D'))
@@ -229,30 +232,34 @@ export default function Hero() {
               ref={ctaRef}
               className="mt-9 md:mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-4"
             >
-              <button
-                onClick={() => {
-                  const target = document.querySelector('#contact')
-                  if (window.lenis) window.lenis.scrollTo(target, { offset: -40, duration: 1.6 })
-                }}
-                className="btn-primary group"
-              >
-                <span>{t.hero.cta1}</span>
-                <ArrowUpRight
-                  size={16}
-                  className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
-                />
-              </button>
+              <MagneticButton strength={0.3}>
+                <button
+                  onClick={() => {
+                    const target = document.querySelector('#contact')
+                    if (window.lenis) window.lenis.scrollTo(target, { offset: -40, duration: 1.6 })
+                  }}
+                  className="btn-primary group"
+                >
+                  <span><ScrambleText trigger="hover">{t.hero.cta1}</ScrambleText></span>
+                  <ArrowUpRight
+                    size={16}
+                    className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  />
+                </button>
+              </MagneticButton>
 
-              <button
-                onClick={() => {
-                  const target = document.querySelector('#projects')
-                  if (window.lenis) window.lenis.scrollTo(target, { offset: -40, duration: 1.6 })
-                }}
-                className="btn-secondary"
-              >
-                {t.hero.cta2}
-                <ArrowDown size={14} />
-              </button>
+              <MagneticButton strength={0.22}>
+                <button
+                  onClick={() => {
+                    const target = document.querySelector('#projects')
+                    if (window.lenis) window.lenis.scrollTo(target, { offset: -40, duration: 1.6 })
+                  }}
+                  className="btn-secondary"
+                >
+                  <ScrambleText trigger="hover">{t.hero.cta2}</ScrambleText>
+                  <ArrowDown size={14} />
+                </button>
+              </MagneticButton>
             </div>
           </div>
 
@@ -262,19 +269,42 @@ export default function Hero() {
               <div className="section-label text-anthracite-500 lg:text-right">
                 — {lang === 'ca' ? 'FITXA TÈCNICA' : 'FICHA TÉCNICA'}
               </div>
-              {[t.hero.stat1, t.hero.stat2, t.hero.stat3].map((stat, i) => (
-                <div
-                  key={i}
-                  className="flex justify-between items-baseline lg:justify-end lg:gap-6 pb-3 border-b border-anthracite-700/10"
-                >
-                  <div className="section-label text-anthracite-500 lg:order-1 lg:text-right max-w-[55%]">
-                    {stat.label}
+              {[t.hero.stat1, t.hero.stat2, t.hero.stat3].map((stat, i) => {
+                // Per a A+ i 6-9 mesos (no numerics purs), no animem
+                const isNumeric = /^\d/.test(stat.value)
+                return (
+                  <div
+                    key={i}
+                    className="flex justify-between items-baseline lg:justify-end lg:gap-6 pb-3 border-b border-anthracite-700/10"
+                  >
+                    <div className="section-label text-anthracite-500 lg:order-1 lg:text-right max-w-[55%]">
+                      {stat.label}
+                    </div>
+                    <div className="font-display text-2xl md:text-3xl text-anthracite-700 tracking-tight font-light num-tabular">
+                      {isNumeric ? (
+                        (() => {
+                          // Parse "100+" → 100 + "+"
+                          const m = stat.value.match(/^(\d+)(.*)$/)
+                          if (m) {
+                            return (
+                              <AnimatedCounter
+                                from={0}
+                                to={parseInt(m[1], 10)}
+                                suffix={m[2]}
+                                duration={1.8}
+                                delay={i * 0.2 + 0.3}
+                              />
+                            )
+                          }
+                          return stat.value
+                        })()
+                      ) : (
+                        stat.value
+                      )}
+                    </div>
                   </div>
-                  <div className="font-display text-2xl md:text-3xl text-anthracite-700 tracking-tight font-light num-tabular">
-                    {stat.value}
-                  </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </div>
