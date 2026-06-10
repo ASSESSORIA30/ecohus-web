@@ -49,11 +49,25 @@ export default function Contact() {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleSubmit = (e) => {
+  const [error, setError] = useState(false)
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Form submitted:', form)
-    // TODO: Connect to backend (Formspree, Resend, etc.)
-    setSubmitted(true)
+    setError(false)
+    try {
+      const res = await fetch('https://formspree.io/f/maqzbprv', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(e.target),
+      })
+      if (res.ok) {
+        setSubmitted(true)
+      } else {
+        setError(true)
+      }
+    } catch {
+      setError(true)
+    }
   }
 
   return (
@@ -96,6 +110,8 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="border-t border-anthracite-700/10">
+                <input type="hidden" name="parcela" value={form.plot} />
+                <input type="hidden" name="presupuesto" value={form.budget} />
                 <Field data-field name="name" label={t.contact.fields.name} type="text" value={form.name} onChange={handleChange} required />
                 <Field data-field name="email" label={t.contact.fields.email} type="email" value={form.email} onChange={handleChange} required />
                 <Field data-field name="phone" label={t.contact.fields.phone} type="tel" value={form.phone} onChange={handleChange} />
@@ -143,6 +159,11 @@ export default function Contact() {
                   <p className="mt-4 text-xs text-anthracite-400 max-w-md">
                     {t.contact.fields.privacy}
                   </p>
+                  {error && (
+                    <p className="mt-3 text-sm text-red-600">
+                      {t.contact.fields.error}
+                    </p>
+                  )}
                 </div>
               </form>
             )}

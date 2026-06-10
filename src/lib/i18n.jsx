@@ -163,6 +163,7 @@ const dictionary = {
         budgetOptions: ['< 200.000 €', '200k — 350k €', '350k — 500k €', '> 500.000 €'],
         send: 'Enviar sol·licitud',
         privacy: 'En enviar acceptes la nostra política de privacitat. Tractament confidencial.',
+        error: 'Hi ha hagut un error en enviar el formulari. Torna-ho a provar o escriu-nos a hola@ekohushabitat.com.',
       },
       thanks: {
         title: 'Gràcies, parlarem aviat.',
@@ -362,6 +363,7 @@ const dictionary = {
         budgetOptions: ['< 200.000 €', '200k — 350k €', '350k — 500k €', '> 500.000 €'],
         send: 'Enviar solicitud',
         privacy: 'Al enviar aceptas nuestra política de privacidad. Tratamiento confidencial.',
+        error: 'Ha habido un error al enviar el formulario. Vuelve a intentarlo o escríbenos a hola@ekohushabitat.com.',
       },
       thanks: {
         title: 'Gracias, hablaremos pronto.',
