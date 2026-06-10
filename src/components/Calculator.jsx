@@ -29,18 +29,19 @@ function findReference(cp) {
 
 export default function Calculator() {
   const { lang } = useT()
-  const [cp, setCp] = useState('25001')
-  const [m2, setM2] = useState(150)
+  const [cp, setCp] = useState('')
+  const [m2, setM2] = useState('')
 
   const result = useMemo(() => {
-    const surface = Math.max(1, Number(m2) || 1)
+    const surface = Number(m2) || 0
     const ref = findReference(cp.trim())
-    const construction = surface * ref.price
-    const architect = surface * ARCHITECT_PER_M2 + ARCHITECT_FIXED
-    const foundation = surface * FOUNDATION_PER_M2
-    const connections = CONNECTIONS_FIXED
+    const hasSurface = surface > 0
+    const construction = hasSurface ? surface * ref.price : 0
+    const architect = hasSurface ? surface * ARCHITECT_PER_M2 + ARCHITECT_FIXED : 0
+    const foundation = hasSurface ? surface * FOUNDATION_PER_M2 : 0
+    const connections = hasSurface ? CONNECTIONS_FIXED : 0
     const total = construction + architect + foundation + connections
-    return { surface, ref, construction, architect, foundation, connections, total }
+    return { surface, ref, construction, architect, foundation, connections, total, hasSurface }
   }, [cp, m2])
 
   const isCa = lang === 'ca'
@@ -79,7 +80,7 @@ export default function Calculator() {
             </div>
 
             <div className="divide-y divide-bone-100/12">
-              <Row label={isCa ? 'Construcció' : 'Construcción'} value={fmt(result.construction)} />
+              <Row label={isCa ? 'Construcció' : 'Construcción'} detail={result.hasSurface ? `${result.surface} m² x ${fmtM2(result.ref.price)}` : ''} value={fmt(result.construction)} />
               <Row label={isCa ? 'Honoraris arquitecte' : 'Honorarios arquitecto'} value={fmt(result.architect)} />
               <Row label={isCa ? 'Cimentació' : 'Cimentación'} value={fmt(result.foundation)} />
               <Row label={isCa ? 'Escomeses i sanejament' : 'Acometidas y saneamiento'} value={fmt(result.connections)} />
@@ -97,10 +98,13 @@ export default function Calculator() {
   )
 }
 
-function Row({ label, value }) {
+function Row({ label, value, detail = '' }) {
   return (
     <div className="py-6 flex items-center justify-between gap-4">
-      <div className="font-medium text-lg text-bone-100/90">{label}</div>
+      <div>
+        <div className="font-medium text-lg text-bone-100/90">{label}</div>
+        {detail && <div className="mt-1 text-sm text-bone-100/45 font-mono">{detail}</div>}
+      </div>
       <div className="font-mono text-xl text-bone-100 num-tabular whitespace-nowrap">{value}</div>
     </div>
   )

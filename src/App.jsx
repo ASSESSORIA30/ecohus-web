@@ -26,13 +26,13 @@ function Home() {
   return (
     <>
       <Hero />
+      <Calculator />
       <About />
       <AAC />
       <Projects />
       <Process />
       <Sustainability />
       <Testimonials />
-      <Calculator />
       <FinalCTA />
       <Contact />
     </>
