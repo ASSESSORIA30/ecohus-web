@@ -222,13 +222,13 @@ html.lenis body { height: auto; }
   transform: translateY(-1px);
 }
 
-/* Calculadora: fons mes pujat amb linies fines tipus paret de maons/totxos intercalats */
+/* Calculadora: fons amb blocs AAC intercalats, mes grans i amb el mateix to */
 .calculator-block-bg {
   background-color: #e3d8c6;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='96' viewBox='0 0 240 96'%3E%3Cg fill='none' stroke='%232c2e2d' stroke-opacity='0.16' stroke-width='0.8'%3E%3Cpath d='M0 0H240M0 32H240M0 64H240M0 96H240'/%3E%3Cpath d='M0 0V32M120 0V32M240 0V32'/%3E%3Cpath d='M60 32V64M180 32V64'/%3E%3Cpath d='M0 64V96M120 64V96M240 64V96'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='192' viewBox='0 0 480 192'%3E%3Cg fill='none' stroke='%232c2e2d' stroke-opacity='0.16' stroke-width='0.8'%3E%3Cpath d='M0 0H480M0 64H480M0 128H480M0 192H480'/%3E%3Cpath d='M0 0V64M240 0V64M480 0V64'/%3E%3Cpath d='M120 64V128M360 64V128'/%3E%3Cpath d='M0 128V192M240 128V192M480 128V192'/%3E%3C/g%3E%3C/svg%3E"),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0));
-  background-size: 240px 96px, 100% 100%;
+  background-size: 480px 192px, 100% 100%;
   background-position: center top, 0 0;
   overflow: hidden;
 }
