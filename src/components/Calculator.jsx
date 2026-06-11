@@ -1,17 +1,8 @@
 import { useMemo, useState } from 'react'
 import { Calculator as CalculatorIcon, FileDown } from 'lucide-react'
 import { useT } from '../lib/i18n'
+import { CP_DATA } from '../data/cpMunicipis'
 
-const CP_PRICES = {
-  '08001': 1860, '08002': 1860, '08003': 1860, '08004': 1845, '08005': 1880,
-  '08960': 1715, '08172': 1780, '17001': 1585, '25001': 1409.4, '25142': 1325,
-  '25996': 1749.6, '43001': 1485, '28001': 1910, '46001': 1575, '50001': 1465,
-}
-const CP_PLACES = {
-  '08001': 'Barcelona', '08002': 'Barcelona', '08003': 'Barcelona', '08004': 'Barcelona', '08005': 'Barcelona',
-  '08960': 'Sant Just Desvern', '08172': 'Sant Cugat del Valles', '17001': 'Girona', '25001': 'Lleida', '25142': 'Bellvis',
-  '25996': 'Lleida', '43001': 'Tarragona', '28001': 'Madrid', '46001': 'Valencia', '50001': 'Zaragoza',
-}
 const DEFAULT_PRICE = 1450
 const ARCHITECT_PER_M2 = 130
 const ARCHITECT_FIXED = 1800
@@ -180,14 +171,17 @@ function buildPdf({ isCa, cp, result }) {
 }
 
 function findReference(cp) {
-  if (CP_PRICES[cp]) return { cp, price: CP_PRICES[cp], exact: true, place: CP_PLACES[cp] || cp }
-  const numeric = Number(cp)
+  const cleanCp = String(cp || '').trim().padStart(5, '0')
+  const found = CP_DATA[cleanCp]
+  if (found) return { cp: cleanCp, price: found.price, exact: true, place: found.municipi }
+  const numeric = Number(cleanCp)
   if (!Number.isFinite(numeric)) return { cp: 'referencia estatal', price: DEFAULT_PRICE, exact: false, place: 'Referencia estatal' }
-  const nearest = Object.keys(CP_PRICES).reduce((best, key) => {
+  const nearest = Object.keys(CP_DATA).reduce((best, key) => {
     const d = Math.abs(Number(key) - numeric)
     return d < best.d ? { key, d } : best
   }, { key: '25001', d: Infinity }).key
-  return { cp: nearest, price: CP_PRICES[nearest], exact: false, place: CP_PLACES[nearest] || nearest }
+  const ref = CP_DATA[nearest]
+  return { cp: nearest, price: ref?.price || DEFAULT_PRICE, exact: false, place: ref?.municipi || nearest }
 }
 
 export default function Calculator() {
