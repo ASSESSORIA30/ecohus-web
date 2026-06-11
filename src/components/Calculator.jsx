@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Calculator as CalculatorIcon } from 'lucide-react'
+import { Calculator as CalculatorIcon, FileDown } from 'lucide-react'
 import { useT } from '../lib/i18n'
 
 const CP_PRICES = {
@@ -15,6 +15,77 @@ const CONNECTIONS_FIXED = 2800
 
 const fmt = (n) => new Intl.NumberFormat('ca-ES', { maximumFractionDigits: 0 }).format(Math.round(n)) + ' €'
 const fmtM2 = (n) => new Intl.NumberFormat('ca-ES', { maximumFractionDigits: 1 }).format(n) + ' €/m²'
+
+
+const pdfEscape = (text) => String(text)
+  .replace(/[\u2018\u2019]/g, "'")
+  .replace(/[\u201c\u201d]/g, '"')
+  .replace(/[\u2013\u2014]/g, '-')
+  .replace(/€/g, 'EUR')
+  .replace(/²/g, '2')
+  .replace(/[\\()]/g, '\\$&')
+
+function buildPdf({ isCa, cp, result }) {
+  const lines = []
+  const add = (x, y, size, text, font = 'F1') => {
+    lines.push(`BT /${font} ${size} Tf ${x} ${y} Td (${pdfEscape(text)}) Tj ET`)
+  }
+  const title = isCa ? 'Pressupost orientatiu EkoHus Habitat' : 'Presupuesto orientativo EkoHus Habitat'
+  const subtitle = isCa ? 'Vivienda d alta eficiencia en hormigo cellular AAC' : 'Vivienda de alta eficiencia en hormigon celular AAC'
+  const rows = [
+    [isCa ? 'Construccio' : 'Construccion', `${result.surface} m2 x ${fmtM2(result.ref.price)}`, fmt(result.construction)],
+    [isCa ? 'Honoraris arquitecte' : 'Honorarios arquitecto', '', fmt(result.architect)],
+    [isCa ? 'Cimentacio' : 'Cimentacion', '', fmt(result.foundation)],
+    [isCa ? 'Escomeses i sanejament' : 'Acometidas y saneamiento', '', fmt(result.connections)],
+  ]
+
+  add(54, 780, 22, title, 'F2')
+  add(54, 755, 10, subtitle)
+  add(54, 718, 11, `${isCa ? 'Codi postal' : 'Codigo postal'}: ${cp || '-'}`)
+  add(54, 700, 11, `${isCa ? 'Superficie' : 'Superficie'}: ${result.surface} m2`)
+  add(54, 682, 11, `${isCa ? 'Preu base construccio' : 'Precio base construccion'}: ${fmtM2(result.ref.price)}`)
+
+  lines.push('0.75 0.80 0.72 rg 54 630 488 34 re f')
+  add(72, 641, 11, isCa ? 'Concepte' : 'Concepto', 'F2')
+  add(300, 641, 11, isCa ? 'Detall' : 'Detalle', 'F2')
+  add(455, 641, 11, 'Import', 'F2')
+
+  let y = 598
+  rows.forEach(([label, detail, value]) => {
+    lines.push('0.88 0.88 0.84 RG 54 ' + (y - 10) + ' 488 0.6 re S')
+    add(72, y, 10, label)
+    add(300, y, 9, detail)
+    add(455, y, 10, value)
+    y -= 34
+  })
+
+  lines.push('0.18 0.19 0.19 rg 54 420 488 56 re f')
+  add(72, 443, 13, isCa ? 'TOTAL ESTIMAT' : 'TOTAL ESTIMADO', 'F2')
+  add(390, 443, 20, fmt(result.total), 'F2')
+  add(72, 402, 9, isCa ? 'IVA no inclos. Pressupost orientatiu pendent de projecte, parcela i memoria de qualitats.' : 'IVA no incluido. Presupuesto orientativo pendiente de proyecto, parcela y memoria de calidades.')
+  add(54, 82, 9, 'www.ekohushabitat.com')
+
+  const stream = lines.join('\n')
+  const objects = [
+    '<< /Type /Catalog /Pages 2 0 R >>',
+    '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>',
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>',
+    `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`,
+  ]
+  let pdf = '%PDF-1.4\n'
+  const offsets = [0]
+  objects.forEach((obj, i) => {
+    offsets.push(pdf.length)
+    pdf += `${i + 1} 0 obj\n${obj}\nendobj\n`
+  })
+  const xref = pdf.length
+  pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`
+  offsets.slice(1).forEach(o => { pdf += `${String(o).padStart(10, '0')} 00000 n \n` })
+  pdf += `trailer << /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`
+  return new Blob([pdf], { type: 'application/pdf' })
+}
 
 function findReference(cp) {
   if (CP_PRICES[cp]) return { cp, price: CP_PRICES[cp], exact: true }
@@ -45,6 +116,19 @@ export default function Calculator() {
   }, [cp, m2])
 
   const isCa = lang === 'ca'
+
+  const generateBudget = () => {
+    if (!result.hasSurface) return
+    const blob = buildPdf({ isCa, cp: cp.trim(), result })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = isCa ? 'pressupost-ekohus.pdf' : 'presupuesto-ekohus.pdf'
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+    URL.revokeObjectURL(url)
+  }
 
   return (
     <section id="calculator" className="relative py-20 md:py-32 calculator-block-bg scroll-mt-32">
@@ -91,6 +175,13 @@ export default function Calculator() {
                 ? <><strong className="text-sage-300">{isCa ? 'Codi postal localitzat.' : 'Código postal localizado.'}</strong> {isCa ? 'Base de construcció aplicada:' : 'Base de construcción aplicada:'} {fmtM2(result.ref.price)}</>
                 : <><strong className="text-sage-300">{isCa ? 'Codi postal no trobat.' : 'Código postal no encontrado.'}</strong> {isCa ? 'S’ha utilitzat una referència propera per fer l’estimació.' : 'Se ha utilizado una referencia cercana para hacer la estimación.'}</>}
             </div>
+
+            {result.hasSurface && (
+              <button onClick={generateBudget} className="mt-6 inline-flex items-center justify-center gap-3 rounded-full bg-bone-100 px-7 py-4 text-sm font-semibold text-anthracite-700 shadow-lg transition hover:bg-sage-500 hover:text-bone-100">
+                <FileDown size={18} />
+                {isCa ? 'Generar pressupost' : 'Generar presupuesto'}
+              </button>
+            )}
           </div>
         </div>
       </div>

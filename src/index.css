@@ -222,25 +222,38 @@ html.lenis body { height: auto; }
   transform: translateY(-1px);
 }
 
-/* Calculadora: fons més pujat amb línies fines tipus paret de blocs */
+/* Calculadora: fons mes pujat amb linies fines tipus paret de maons/totxos */
 .calculator-block-bg {
-  background-color: #e8e1d3;
+  background-color: #e3d8c6;
   background-image:
-    linear-gradient(to right, rgba(44, 46, 45, 0.075) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(44, 46, 45, 0.075) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0));
-  background-size: 120px 44px, 120px 44px, 100% 100%;
-  background-position: 0 0, 0 0, 0 0;
+    linear-gradient(to bottom, rgba(44, 46, 45, 0.105) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0));
+  background-size: 100% 42px, 100% 100%;
+  background-position: 0 0, 0 0;
+  overflow: hidden;
 }
-.calculator-block-bg::before {
+.calculator-block-bg::before,
+.calculator-block-bg::after {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
+}
+.calculator-block-bg::before {
+  opacity: 0.68;
+  background-image: linear-gradient(to right, rgba(44, 46, 45, 0.10) 1px, transparent 1px);
+  background-size: 118px 84px;
+  background-position: 0 0;
+}
+.calculator-block-bg::after {
   opacity: 0.55;
-  background-image: linear-gradient(to right, transparent 0 60px, rgba(44, 46, 45, 0.075) 60px 61px, transparent 61px 120px);
-  background-size: 120px 88px;
-  background-position: 0 44px;
+  background-image: linear-gradient(to right, rgba(44, 46, 45, 0.10) 1px, transparent 1px);
+  background-size: 118px 84px;
+  background-position: 59px 42px;
+}
+.calculator-block-bg > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* ============================================
