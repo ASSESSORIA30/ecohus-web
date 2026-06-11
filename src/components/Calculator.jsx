@@ -34,7 +34,7 @@ function buildPdf({ isCa, cp, result }) {
   const subtitle = isCa ? 'Vivienda d alta eficiencia en hormigo cellular AAC' : 'Vivienda de alta eficiencia en hormigon celular AAC'
   const rows = [
     [isCa ? 'Construccio' : 'Construccion', `${result.surface} m2 x ${fmtM2(result.ref.price)}`, fmt(result.construction)],
-    [isCa ? 'Honoraris arquitecte' : 'Honorarios arquitecto', '', fmt(result.architect)],
+    [isCa ? 'Direccio i final d obra' : 'Direccion y final de obra', '', fmt(result.architect)],
     [isCa ? 'Cimentacio' : 'Cimentacion', '', fmt(result.foundation)],
     [isCa ? 'Escomeses i sanejament' : 'Acometidas y saneamiento', '', fmt(result.connections)],
   ]
@@ -44,13 +44,14 @@ function buildPdf({ isCa, cp, result }) {
   add(54, 718, 11, `${isCa ? 'Codi postal' : 'Codigo postal'}: ${cp || '-'}`)
   add(54, 700, 11, `${isCa ? 'Superficie' : 'Superficie'}: ${result.surface} m2`)
   add(54, 682, 11, `${isCa ? 'Preu base construccio' : 'Precio base construccion'}: ${fmtM2(result.ref.price)}`)
+  add(54, 660, 10, isCa ? 'Pressupost LLAVE EN MANO segons desglossament orientatiu.' : 'Presupuesto LLAVE EN MANO segun desglose orientativo.')
 
-  lines.push('0.75 0.80 0.72 rg 54 630 488 34 re f')
-  add(72, 641, 11, isCa ? 'Concepte' : 'Concepto', 'F2')
-  add(300, 641, 11, isCa ? 'Detall' : 'Detalle', 'F2')
-  add(455, 641, 11, 'Import', 'F2')
+  lines.push('0.75 0.80 0.72 rg 54 620 488 34 re f')
+  add(72, 631, 11, isCa ? 'Concepte' : 'Concepto', 'F2')
+  add(300, 631, 11, isCa ? 'Detall' : 'Detalle', 'F2')
+  add(455, 631, 11, 'Import', 'F2')
 
-  let y = 598
+  let y = 588
   rows.forEach(([label, detail, value]) => {
     lines.push('0.88 0.88 0.84 RG 54 ' + (y - 10) + ' 488 0.6 re S')
     add(72, y, 10, label)
@@ -60,8 +61,8 @@ function buildPdf({ isCa, cp, result }) {
   })
 
   lines.push('0.18 0.19 0.19 rg 54 420 488 56 re f')
-  add(72, 443, 13, isCa ? 'TOTAL ESTIMAT' : 'TOTAL ESTIMADO', 'F2')
-  add(390, 443, 20, fmt(result.total), 'F2')
+  add(72, 443, 13, isCa ? 'TOTAL CLAU EN MA' : 'TOTAL LLAVE EN MANO', 'F2')
+  add(360, 443, 20, `${fmt(result.total)} + IVA`, 'F2')
   add(72, 402, 9, isCa ? 'IVA no inclos. Pressupost orientatiu pendent de projecte, parcela i memoria de qualitats.' : 'IVA no incluido. Presupuesto orientativo pendiente de proyecto, parcela y memoria de calidades.')
   add(54, 82, 9, 'www.ekohushabitat.com')
 
@@ -106,7 +107,7 @@ export default function Calculator() {
   const result = useMemo(() => {
     const surface = Number(m2) || 0
     const ref = findReference(cp.trim())
-    const hasSurface = surface > 0
+    const hasSurface = surface >= 100
     const construction = hasSurface ? surface * ref.price : 0
     const architect = hasSurface ? surface * ARCHITECT_PER_M2 + ARCHITECT_FIXED : 0
     const foundation = hasSurface ? surface * FOUNDATION_PER_M2 : 0
@@ -150,7 +151,7 @@ export default function Calculator() {
               <span className="absolute right-5 top-1/2 -translate-y-1/2 text-anthracite-500">m²</span>
             </div>
             <p className="mt-6 text-sm md:text-base text-anthracite-500 leading-relaxed">
-              {isCa ? 'Estimació orientativa per a habitatge unifamiliar d’alta eficiència. Els imports finals depenen de parcel·la, normativa i memòria de qualitats.' : 'Estimación orientativa para vivienda unifamiliar de alta eficiencia. Los importes finales dependen de parcela, normativa y memoria de calidades.'}
+              {isCa ? 'Estimació orientativa per a habitatge unifamiliar d’alta eficiència. Mínim de càlcul: 100 m². Els imports finals depenen de parcel·la, normativa i memòria de qualitats.' : 'Estimación orientativa para vivienda unifamiliar de alta eficiencia. Mínimo de cálculo: 100 m². Los importes finales dependen de parcela, normativa y memoria de calidades.'}
             </p>
           </div>
 
@@ -158,22 +159,24 @@ export default function Calculator() {
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-b border-bone-100/12 pb-8">
               <div>
                 <div className="section-label text-bone-100/45 mb-4">{isCa ? 'Total estimat' : 'Total estimado'}</div>
-                <div className="font-display text-5xl md:text-7xl font-light tracking-tight num-tabular">{fmt(result.total)}</div>
-                <div className="mt-3 text-bone-100/55">IVA {isCa ? 'no inclòs' : 'no incluido'}</div>
+                <div className="font-display text-5xl md:text-7xl font-light tracking-tight num-tabular">{result.hasSurface ? fmt(result.total) : '—'}</div>
+                <div className="mt-3 text-bone-100/55">{result.hasSurface ? `IVA ${isCa ? 'no inclòs' : 'no incluido'}` : (isCa ? 'Introdueix mínim 100 m²' : 'Introduce mínimo 100 m²')}</div>
               </div>
             </div>
 
             <div className="divide-y divide-bone-100/12">
-              <Row label={isCa ? 'Construcció' : 'Construcción'} detail={result.hasSurface ? `${result.surface} m² x ${fmtM2(result.ref.price)}` : ''} value={fmt(result.construction)} />
-              <Row label={isCa ? 'Honoraris arquitecte' : 'Honorarios arquitecto'} value={fmt(result.architect)} />
-              <Row label={isCa ? 'Cimentació' : 'Cimentación'} value={fmt(result.foundation)} />
-              <Row label={isCa ? 'Escomeses i sanejament' : 'Acometidas y saneamiento'} value={fmt(result.connections)} />
+              <Row label={isCa ? 'Construcció' : 'Construcción'} detail={result.hasSurface ? `${result.surface} m² x ${fmtM2(result.ref.price)}` : ''} value={result.hasSurface ? fmt(result.construction) : '—'} />
+              <Row label={isCa ? 'Direcció i final d’obra' : 'Dirección y final de obra'} value={result.hasSurface ? fmt(result.architect) : '—'} />
+              <Row label={isCa ? 'Cimentació' : 'Cimentación'} value={result.hasSurface ? fmt(result.foundation) : '—'} />
+              <Row label={isCa ? 'Escomeses i sanejament' : 'Acometidas y saneamiento'} value={result.hasSurface ? fmt(result.connections) : '—'} />
             </div>
 
             <div className="mt-8 rounded-2xl border border-sage-500/30 bg-sage-500/10 px-5 py-4 text-sm text-bone-100/70">
-              {result.ref.exact
-                ? <><strong className="text-sage-300">{isCa ? 'Codi postal localitzat.' : 'Código postal localizado.'}</strong> {isCa ? 'Base de construcció aplicada:' : 'Base de construcción aplicada:'} {fmtM2(result.ref.price)}</>
-                : <><strong className="text-sage-300">{isCa ? 'Codi postal no trobat.' : 'Código postal no encontrado.'}</strong> {isCa ? 'S’ha utilitzat una referència propera per fer l’estimació.' : 'Se ha utilizado una referencia cercana para hacer la estimación.'}</>}
+              {!result.hasSurface
+                ? <><strong className="text-sage-300">{isCa ? 'Mínim 100 m².' : 'Mínimo 100 m².'}</strong> {isCa ? 'La calculadora no mostrarà imports fins arribar a aquesta superfície.' : 'La calculadora no mostrará importes hasta alcanzar esta superficie.'}</>
+                : result.ref.exact
+                  ? <><strong className="text-sage-300">{isCa ? 'Codi postal localitzat.' : 'Código postal localizado.'}</strong> {isCa ? 'Base de construcció aplicada:' : 'Base de construcción aplicada:'} {fmtM2(result.ref.price)}</>
+                  : <><strong className="text-sage-300">{isCa ? 'Codi postal no trobat.' : 'Código postal no encontrado.'}</strong> {isCa ? 'S’ha utilitzat una referència propera per fer l’estimació.' : 'Se ha utilizado una referencia cercana para hacer la estimación.'}</>}
             </div>
 
             {result.hasSurface && (

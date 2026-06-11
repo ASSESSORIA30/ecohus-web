@@ -222,34 +222,22 @@ html.lenis body { height: auto; }
   transform: translateY(-1px);
 }
 
-/* Calculadora: fons mes pujat amb linies fines tipus paret de maons/totxos */
+/* Calculadora: fons mes pujat amb linies fines tipus paret de maons/totxos intercalats */
 .calculator-block-bg {
   background-color: #e3d8c6;
   background-image:
-    linear-gradient(to bottom, rgba(44, 46, 45, 0.105) 1px, transparent 1px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='236' height='84' viewBox='0 0 236 84'%3E%3Cg fill='none' stroke='%232c2e2d' stroke-opacity='0.13' stroke-width='1'%3E%3Cpath d='M0 0H236M0 42H236M0 84H236'/%3E%3Cpath d='M0 0V42M118 0V42M236 0V42M59 42V84M177 42V84'/%3E%3C/g%3E%3C/svg%3E"),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0));
-  background-size: 100% 42px, 100% 100%;
-  background-position: 0 0, 0 0;
+  background-size: 236px 84px, 100% 100%;
+  background-position: center top, 0 0;
   overflow: hidden;
 }
-.calculator-block-bg::before,
-.calculator-block-bg::after {
+.calculator-block-bg::before {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
-}
-.calculator-block-bg::before {
-  opacity: 0.68;
-  background-image: linear-gradient(to right, rgba(44, 46, 45, 0.10) 1px, transparent 1px);
-  background-size: 118px 84px;
-  background-position: 0 0;
-}
-.calculator-block-bg::after {
-  opacity: 0.55;
-  background-image: linear-gradient(to right, rgba(44, 46, 45, 0.10) 1px, transparent 1px);
-  background-size: 118px 84px;
-  background-position: 59px 42px;
+  background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.28), transparent 36%), radial-gradient(circle at 80% 10%, rgba(255,255,255,0.16), transparent 30%);
 }
 .calculator-block-bg > * {
   position: relative;
