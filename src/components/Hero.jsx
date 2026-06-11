@@ -251,7 +251,7 @@ export default function Hero() {
               <MagneticButton strength={0.22}>
                 <button
                   onClick={() => {
-                    const target = document.querySelector('#projects')
+                    const target = document.querySelector('#calculator')
                     if (window.lenis) window.lenis.scrollTo(target, { offset: -40, duration: 1.6 })
                   }}
                   className="btn-secondary"

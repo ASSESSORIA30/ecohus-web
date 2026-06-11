@@ -12,6 +12,7 @@ import PageTransition from './components/PageTransition'
 import Hero from './components/Hero'
 import About from './components/About'
 import AAC from './components/AAC'
+import Calculator from './components/Calculator'
 import CertificationsMarquee from './components/CertificationsMarquee'
 import Projects from './components/Projects'
 import Process from './components/Process'
@@ -29,6 +30,7 @@ function Home() {
       <Hero />
       <About />
       <AAC />
+      <Calculator />
       <CertificationsMarquee />
       <Projects />
       <Process />

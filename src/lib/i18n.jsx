@@ -21,14 +21,14 @@ const dictionary = {
       titleEm: 'per a tota la vida',
       subtitle: 'Construïm habitatges d\'alta eficiència energètica amb sistema de formigó cel·lular AAC inspirats en els estàndards nòrdics. Confort estable, factures mínimes, durabilitat de més d\'un segle.',
       cta1: 'Sol·licita estudi gratuït',
-      cta2: 'Veure projectes',
+      cta2: 'Calcular el preu',
       stat1: { label: 'Eficiència energètica', value: 'A+' },
       stat2: { label: 'Anys de durabilitat', value: '100+' },
       stat3: { label: 'Temps de construcció', value: '6–9 mesos' },
     },
     // About / Why Ekohus
     about: {
-      label: '01 / 06 — PER QUÈ EKOHUS',
+      label: '01 / 07 — PER QUÈ EKOHUS',
       title: 'Cases pensades per durar.',
       titleEm: 'Construïdes amb honestedat.',
       lead: 'No fem cases per impressionar. Fem cases per habitar-les durant generacions. Cada projecte segueix els principis de l\'arquitectura nòrdica: eficient, funcional, sostenible i atemporal.',
@@ -59,9 +59,29 @@ const dictionary = {
         },
       ],
     },
+    // Calculator
+    calculator: {
+      label: '03 / 07 — CALCULA',
+      title: 'Quant costaria',
+      titleEm: 'la teva casa EKOHUS?',
+      lead: 'Introdueix els metres quadrats i el codi postal de la parcel·la per obtenir una primera estimació orientativa.',
+      sqmLabel: 'Metres quadrats (m²)',
+      sqmPlaceholder: 'Ex. 150',
+      cpLabel: 'Codi postal',
+      cpPlaceholder: 'Ex. 08500',
+      submit: 'Calcular preu orientatiu',
+      resultLocation: 'Localitat detectada',
+      resultConstruction: 'Preu de construcció',
+      resultTotal: 'Preu total orientatiu',
+      disclaimer: 'Preu orientatiu subjecte a estudi tècnic, parcel·la, acabats, fonamentació, normativa urbanística i característiques del projecte.',
+      notFoundTitle: 'No hem trobat dades per a aquest codi postal.',
+      notFoundText: 'Deixa\'ns les teves dades i et prepararem una estimació personalitzada.',
+      notFoundCta: 'Contacta amb nosaltres',
+      errorFields: 'Si us plau, introdueix uns metres quadrats i un codi postal vàlids.',
+    },
     // AAC explanation
     aac: {
-      label: '02 / 06 — TECNOLOGIA AAC',
+      label: '02 / 07 — TECNOLOGIA AAC',
       title: 'Què és el formigó cel·lular',
       titleEm: 'i per què el triem',
       lead: 'L\'AAC (Autoclaved Aerated Concrete) és un material mineral fabricat amb sorra silícia, ciment, calç i un agent expansor. Curat en autoclau, conté milions de cel·les d\'aire microscòpiques que el converteixen en el material constructiu més equilibrat del mercat.',
@@ -88,7 +108,7 @@ const dictionary = {
     },
     // Projects
     projects: {
-      label: '03 / 06 — PROJECTES',
+      label: '04 / 07 — PROJECTES',
       title: 'Cases que ja són',
       titleEm: 'llar',
       lead: 'Una selecció dels nostres projectes recents. Cada casa s\'adapta a la parcel·la, al programa familiar i a l\'orientació solar.',
@@ -102,7 +122,7 @@ const dictionary = {
     },
     // Process
     process: {
-      label: '04 / 06 — PROCÉS',
+      label: '05 / 07 — PROCÉS',
       title: 'De la primera trucada',
       titleEm: 'a les claus',
       lead: 'Un procés clar, un interlocutor únic, sense sorpreses. Aquest és el nostre compromís amb cada client.',
@@ -116,7 +136,7 @@ const dictionary = {
     },
     // Sustainability
     sustainability: {
-      label: '05 / 06 — SOSTENIBILITAT',
+      label: '06 / 07 — SOSTENIBILITAT',
       title: 'Cases preparades',
       titleEm: 'per al futur',
       lead: 'Construïm pensant en els pròxims 100 anys, no en els pròxims 10. Cada decisió de projecte respon a aquest principi.',
@@ -147,7 +167,7 @@ const dictionary = {
     },
     // Contact
     contact: {
-      label: '06 / 06 — CONTACTA',
+      label: '07 / 07 — CONTACTA',
       title: 'Comencem amb',
       titleEm: 'una conversa',
       lead: 'Explica\'ns la teva idea, la parcel·la i els teus terminis. Et responem en menys de 24 hores feiners.',
@@ -229,13 +249,13 @@ const dictionary = {
       titleEm: 'para toda la vida',
       subtitle: 'Construimos viviendas de alta eficiencia energética con sistema de hormigón celular AAC inspirados en los estándares nórdicos. Confort estable, facturas mínimas, durabilidad de más de un siglo.',
       cta1: 'Solicita estudio gratuito',
-      cta2: 'Ver proyectos',
+      cta2: 'Calcular el precio',
       stat1: { label: 'Eficiencia energética', value: 'A+' },
       stat2: { label: 'Años de durabilidad', value: '100+' },
       stat3: { label: 'Tiempo de construcción', value: '6–9 meses' },
     },
     about: {
-      label: '01 / 06 — POR QUÉ EKOHUS',
+      label: '01 / 07 — POR QUÉ EKOHUS',
       title: 'Casas pensadas para durar.',
       titleEm: 'Construidas con honestidad.',
       lead: 'No hacemos casas para impresionar. Hacemos casas para habitarlas durante generaciones. Cada proyecto sigue los principios de la arquitectura nórdica: eficiente, funcional, sostenible y atemporal.',
@@ -266,8 +286,27 @@ const dictionary = {
         },
       ],
     },
+    calculator: {
+      label: '03 / 07 — CALCULA',
+      title: '¿Cuánto costaría',
+      titleEm: 'tu casa EKOHUS?',
+      lead: 'Introduce los metros cuadrados y el código postal de la parcela para obtener una primera estimación orientativa.',
+      sqmLabel: 'Metros cuadrados (m²)',
+      sqmPlaceholder: 'Ej. 150',
+      cpLabel: 'Código postal',
+      cpPlaceholder: 'Ej. 08500',
+      submit: 'Calcular precio orientativo',
+      resultLocation: 'Localidad detectada',
+      resultConstruction: 'Precio de construcción',
+      resultTotal: 'Precio total orientativo',
+      disclaimer: 'Precio orientativo sujeto a estudio técnico, parcela, acabados, cimentación, normativa urbanística y características del proyecto.',
+      notFoundTitle: 'No hemos encontrado datos para este código postal.',
+      notFoundText: 'Déjanos tus datos y te prepararemos una estimación personalizada.',
+      notFoundCta: 'Contacta con nosotros',
+      errorFields: 'Por favor, introduce unos metros cuadrados y un código postal válidos.',
+    },
     aac: {
-      label: '02 / 06 — TECNOLOGÍA AAC',
+      label: '02 / 07 — TECNOLOGÍA AAC',
       title: 'Qué es el hormigón celular',
       titleEm: 'y por qué lo elegimos',
       lead: 'El AAC (Autoclaved Aerated Concrete) es un material mineral fabricado con arena silícea, cemento, cal y un agente expansor. Curado en autoclave, contiene millones de celdas de aire microscópicas que lo convierten en el material constructivo más equilibrado del mercado.',
@@ -293,7 +332,7 @@ const dictionary = {
       },
     },
     projects: {
-      label: '03 / 06 — PROYECTOS',
+      label: '04 / 07 — PROYECTOS',
       title: 'Casas que ya son',
       titleEm: 'hogar',
       lead: 'Una selección de nuestros proyectos recientes. Cada casa se adapta a la parcela, al programa familiar y a la orientación solar.',
@@ -306,7 +345,7 @@ const dictionary = {
       seeAll: 'Ver todos los proyectos',
     },
     process: {
-      label: '04 / 06 — PROCESO',
+      label: '05 / 07 — PROCESO',
       title: 'De la primera llamada',
       titleEm: 'a las llaves',
       lead: 'Un proceso claro, un interlocutor único, sin sorpresas. Este es nuestro compromiso con cada cliente.',
@@ -319,7 +358,7 @@ const dictionary = {
       ],
     },
     sustainability: {
-      label: '05 / 06 — SOSTENIBILIDAD',
+      label: '06 / 07 — SOSTENIBILIDAD',
       title: 'Casas preparadas',
       titleEm: 'para el futuro',
       lead: 'Construimos pensando en los próximos 100 años, no en los próximos 10. Cada decisión de proyecto responde a este principio.',
@@ -347,7 +386,7 @@ const dictionary = {
       cta: 'Pide información',
     },
     contact: {
-      label: '06 / 06 — CONTACTA',
+      label: '07 / 07 — CONTACTA',
       title: 'Empezamos con',
       titleEm: 'una conversación',
       lead: 'Cuéntanos tu idea, la parcela y tus plazos. Te respondemos en menos de 24 horas laborables.',
