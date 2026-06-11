@@ -62,7 +62,7 @@ export default function Hero() {
         <div className="max-w-[1600px] mx-auto w-full">
           <div className="max-w-4xl">
             <div className="section-label text-bone-100/75 mb-6">{t.hero.tagline}</div>
-            <h1 ref={titleRef} className="font-display text-[clamp(3.25rem,9vw,9.5rem)] leading-[0.9] tracking-tightest font-light text-bone-100">
+            <h1 key={lang} ref={titleRef} className="font-display text-[clamp(3.25rem,9vw,9.5rem)] leading-[0.9] tracking-tightest font-light text-bone-100">
               {t.hero.title}<br />
               <span className="font-semibold text-bone-100">{t.hero.titleEm}</span>
             </h1>
@@ -74,7 +74,7 @@ export default function Hero() {
                 <span>{t.hero.cta1}</span>
                 <ArrowUpRight size={16} className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </button>
-              <button onClick={() => scrollTo('#calculator')} className="btn-secondary border-bone-100/60 text-bone-100 hover:bg-bone-100 hover:text-anthracite-700">
+              <button onClick={() => scrollTo('#calculator')} className="hero-budget-btn">
                 {lang === 'ca' ? 'Calcular pressupost' : 'Calcular presupuesto'}
                 <ArrowDown size={14} />
               </button>

@@ -198,6 +198,51 @@ html.lenis body { height: auto; }
   background-size: 64px 64px;
 }
 
+
+/* Hero CTA: pressupost ben visible sobre fotografia */
+.hero-budget-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.95rem 2rem;
+  background: var(--bone);
+  color: var(--anthracite);
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid rgba(250, 250, 247, 0.92);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.22);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.hero-budget-btn:hover {
+  background: var(--sage-deep);
+  border-color: var(--sage-deep);
+  color: var(--bone);
+  transform: translateY(-1px);
+}
+
+/* Calculadora: fons més pujat amb línies fines tipus paret de blocs */
+.calculator-block-bg {
+  background-color: #e8e1d3;
+  background-image:
+    linear-gradient(to right, rgba(44, 46, 45, 0.075) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(44, 46, 45, 0.075) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0));
+  background-size: 120px 44px, 120px 44px, 100% 100%;
+  background-position: 0 0, 0 0, 0 0;
+}
+.calculator-block-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image: linear-gradient(to right, transparent 0 60px, rgba(44, 46, 45, 0.075) 60px 61px, transparent 61px 120px);
+  background-size: 120px 88px;
+  background-position: 0 44px;
+}
+
 /* ============================================
    TIPOGRAFIA EDITORIAL (Fase 1 — premium)
    ============================================ */

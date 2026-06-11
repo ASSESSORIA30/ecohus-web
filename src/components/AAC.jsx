@@ -86,6 +86,7 @@ export default function AAC() {
           </div>
           <div className="col-span-12 md:col-span-8">
             <h2
+              key={lang}
               ref={headingRef}
               className="font-display text-display leading-[1.0] tracking-tighter-2 text-anthracite-700 font-medium"
             >

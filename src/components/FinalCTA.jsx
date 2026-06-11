@@ -64,6 +64,7 @@ export default function FinalCTA() {
 
       <div className="relative max-w-[1600px] mx-auto px-5 md:px-10 text-center text-bone-100">
         <h2
+          key={lang}
           ref={titleRef}
           className="font-display text-display leading-[1.05] tracking-tighter-2 font-medium max-w-4xl mx-auto"
         >

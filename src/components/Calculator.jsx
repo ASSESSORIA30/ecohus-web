@@ -47,7 +47,7 @@ export default function Calculator() {
   const isCa = lang === 'ca'
 
   return (
-    <section id="calculator" className="relative py-20 md:py-32 bg-bone-100 scroll-mt-32">
+    <section id="calculator" className="relative py-20 md:py-32 calculator-block-bg scroll-mt-32">
       <div className="max-w-[1600px] mx-auto px-5 md:px-10">
         <div className="grid grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="col-span-12 lg:col-span-5 bg-white/70 border border-anthracite-700/10 rounded-[2rem] p-6 md:p-8 shadow-sm">
