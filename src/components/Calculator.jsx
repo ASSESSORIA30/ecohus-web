@@ -260,7 +260,7 @@ export default function Calculator() {
               {!result.hasSurface
                 ? <><strong className="text-sage-300">{isCa ? 'Mínim 100 m².' : 'Mínimo 100 m².'}</strong> {isCa ? 'La calculadora no mostrarà imports fins arribar a aquesta superfície.' : 'La calculadora no mostrará importes hasta alcanzar esta superficie.'}</>
                 : result.ref.exact
-                  ? <><strong className="text-sage-300">{isCa ? 'Codi postal localitzat.' : 'Código postal localizado.'}</strong> {result.ref.place}. {isCa ? 'Base de construcció aplicada:' : 'Base de construcción aplicada:'} {fmtM2(result.ref.price)}</>
+                  ? <><strong className="text-sage-300">{isCa ? 'Codi postal localitzat.' : 'Código postal localizado.'}</strong> {result.ref.place}. {isCa ? 'Preu mitjà de construcció:' : 'Precio medio de construcción:'} {fmtM2(result.ref.price * 1.1153)}</>
                   : <><strong className="text-sage-300">{isCa ? 'Codi postal no trobat.' : 'Código postal no encontrado.'}</strong> {isCa ? 'S’ha utilitzat una referència propera per fer l’estimació.' : 'Se ha utilizado una referencia cercana para hacer la estimación.'}</>}
             </div>
 
