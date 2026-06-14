@@ -54,7 +54,7 @@ export default function Footer() {
           <div className="col-span-12 md:col-span-2">
             <div className="section-label text-sage-300 mb-4">{t.footer.followTitle}</div>
             <div className="flex gap-2">
-              <a href="#" aria-label="Instagram" className="w-10 h-10 rounded-full border border-bone-100/20 flex items-center justify-center hover:border-sage-300 hover:text-sage-300 transition-colors">
+              <a href="https://www.instagram.com/ekohushabitat" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full border border-bone-100/20 flex items-center justify-center hover:border-sage-300 hover:text-sage-300 transition-colors">
                 <Instagram size={16} />
               </a>
               <a href="#" aria-label="LinkedIn" className="w-10 h-10 rounded-full border border-bone-100/20 flex items-center justify-center hover:border-sage-300 hover:text-sage-300 transition-colors">
@@ -69,7 +69,19 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="py-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-t border-bone-100/10 text-xs text-bone-100/50 section-label">
-          <span>{t.footer.copy}</span>
+          <div className="flex flex-col gap-3">
+            <span>{t.footer.copy}</span>
+            <a
+              href="https://www.skytopdigital.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 hover:text-sage-300 transition-colors normal-case tracking-normal"
+              aria-label="Web creada per SkyTop Digital"
+            >
+              <span>Web creada per</span>
+              <img src="/logo-skytop.png" alt="SkyTop Digital" className="h-7 w-auto object-contain" />
+            </a>
+          </div>
           <div className="flex gap-6">
             <Link to="/legal#aviso-legal" className="hover:text-sage-300 transition-colors">{t.footer.legalLinks.legal}</Link>
             <Link to="/legal#privacidad" className="hover:text-sage-300 transition-colors">{t.footer.legalLinks.privacy}</Link>
