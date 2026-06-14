@@ -205,7 +205,9 @@ export default function Calculator() {
 
   const generateBudget = () => {
     if (!result.hasSurface) return
-    const blob = buildPdf({ isCa, cp: cp.trim(), result })
+
+    const cleanCp = cp.trim()
+    const blob = buildPdf({ isCa, cp: cleanCp, result })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
@@ -214,6 +216,12 @@ export default function Calculator() {
     a.click()
     a.remove()
     URL.revokeObjectURL(url)
+
+    const phone = '34684784887'
+    const whatsappText = result.ref.exact
+      ? `Hola, quiero información acerca de una casa de ${result.surface} m2 en el municipio de ${result.ref.place} con código postal ${cleanCp}. Gracias`
+      : `Hola, quiero información acerca de una casa de ${result.surface} m2 en el municipio cercano al código postal ${cleanCp || result.ref.cp}`
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(whatsappText)}`, '_blank', 'noopener,noreferrer')
   }
 
   return (
