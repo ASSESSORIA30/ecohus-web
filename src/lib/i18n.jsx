@@ -185,6 +185,8 @@ const dictionary = {
       contactTitle: 'CONTACTE',
       followTitle: 'SEGUEIX-NOS',
       legalTitle: 'LEGAL',
+      groupText: 'EKOHUS és una empresa de MD Group',
+      groupLink: 'Visita ModularDom Group',
       legalLinks: {
         legal: 'Avís legal',
         privacy: 'Privacitat',
@@ -384,6 +386,8 @@ const dictionary = {
       contactTitle: 'CONTACTO',
       followTitle: 'SÍGUENOS',
       legalTitle: 'LEGAL',
+      groupText: 'EKOHUS es una empresa de MD Group',
+      groupLink: 'Visita ModularDom Group',
       legalLinks: {
         legal: 'Aviso legal',
         privacy: 'Privacidad',
