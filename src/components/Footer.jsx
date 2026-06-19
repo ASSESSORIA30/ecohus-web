@@ -28,6 +28,23 @@ export default function Footer() {
             <p className="text-bone-100/70 max-w-md leading-relaxed text-sm md:text-base">
               {t.footer.tagline}
             </p>
+
+            <a
+              href="https://modulardom.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-7 inline-flex flex-col sm:flex-row sm:items-center gap-4 rounded-2xl border border-bone-100/10 bg-bone-100/[0.03] px-5 py-4 hover:border-sage-300/60 hover:bg-bone-100/[0.06] transition-colors group"
+              aria-label="EKOHUS Habitat és una empresa de MD Group"
+            >
+              <img
+                src="/md-group-logo.webp"
+                alt="MD Group"
+                className="h-14 sm:h-16 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+              />
+              <span className="text-xs md:text-sm text-bone-100/70 leading-relaxed normal-case tracking-normal">
+                EKOHUS Habitat és una empresa de <span className="text-bone-100 font-medium">MD Group</span>
+              </span>
+            </a>
           </div>
 
           <div className="col-span-6 md:col-span-2">
