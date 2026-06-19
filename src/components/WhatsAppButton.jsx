@@ -22,7 +22,7 @@ export default function WhatsAppButton() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const phone = '34684784887'
+  const phone = '34638350915'
   const message = encodeURIComponent(t.whatsapp.message)
   const url = `https://wa.me/${phone}?text=${message}`
 

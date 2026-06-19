@@ -119,7 +119,7 @@ Cada secció és accessible amb àncora: `/legal#aviso-legal`, `/legal#privacida
 
 ## Funcionalitats clau
 
-- **Botó flotant WhatsApp** — apareix després de scrollejar 300px, amb pulse animation, obre `wa.me/34684784887` amb missatge prefiljat segons idioma
+- **Botó flotant WhatsApp** — apareix després de scrollejar 300px, amb pulse animation, obre `wa.me/34638350915` amb missatge prefiljat segons idioma
 - **Cookie banner** — apareix la primera visita, opcions "Acceptar totes" / "Només essencials"
 - **Toggle CAT/CAST** — al header, persistent
 - **Formulari de contacte** — amb camps inline (estil editorial) i chips per parcel·la/pressupost
@@ -156,7 +156,7 @@ El formulari de contacte actualment fa `console.log()`. Per connectar-lo a un ba
 - **CIF**: B26624072
 - **Email comercial**: hola@ekohushabitat.com
 - **Email legal**: info@modulardom.com
-- **Telèfon**: +34 684 784 887
+- **Telèfon**: +34 638 350 915
 - **Web**: www.ekohushabitat.com
 
 ---

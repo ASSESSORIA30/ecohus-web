@@ -176,7 +176,7 @@ export default function Navbar() {
               </div>
             </div>
             <div className="p-5 border-t border-anthracite-700/10 section-label text-anthracite-500">
-              hola@ekohushabitat.com · +34 684 784 887
+              hola@ekohushabitat.com · +34 638 350 915
             </div>
           </motion.div>
         )}
