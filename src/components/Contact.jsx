@@ -164,8 +164,8 @@ export default function Contact() {
             </div>
             <div>
               <div className="section-label text-sage-700 mb-3">{t.contact.info.phoneLabel}</div>
-              <a href="tel:+34638350915" className="font-display text-lg text-anthracite-700 link-underline">
-                +34 638 350 915
+              <a href="tel:+34638359015" className="font-display text-lg text-anthracite-700 link-underline">
+                +34 638 359 015
               </a>
             </div>
             <div>

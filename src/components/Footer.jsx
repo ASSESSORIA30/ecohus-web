@@ -45,7 +45,7 @@ export default function Footer() {
             <div className="section-label text-sage-300 mb-4">{t.footer.contactTitle}</div>
             <ul className="space-y-2 text-sm text-bone-100/80">
               <li><a href="mailto:hola@ekohushabitat.com" className="link-underline">hola@ekohushabitat.com</a></li>
-              <li><a href="tel:+34638350915" className="link-underline">+34 638 350 915</a></li>
+              <li><a href="tel:+34638359015" className="link-underline">+34 638 359 015</a></li>
               <li>www.ekohushabitat.com</li>
               <li className="pt-3 text-bone-100/60">Catalunya · Espanya</li>
             </ul>

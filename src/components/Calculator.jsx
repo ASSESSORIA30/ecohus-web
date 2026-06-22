@@ -217,7 +217,7 @@ export default function Calculator() {
     a.remove()
     URL.revokeObjectURL(url)
 
-    const phone = '34638350915'
+    const phone = '34638359015'
     const whatsappText = result.ref.exact
       ? `Hola, quiero información acerca de una casa de ${result.surface} m2 en el municipio de ${result.ref.place} con código postal ${cleanCp}. Gracias`
       : `Hola, quiero información acerca de una casa de ${result.surface} m2 en el municipio cercano al código postal ${cleanCp || result.ref.cp}`
