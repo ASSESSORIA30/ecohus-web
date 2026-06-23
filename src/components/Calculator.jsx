@@ -35,7 +35,12 @@ function buildPdf({ isCa, cp, result }) {
     .replace(/[•]/g, '-').replace(/[≤]/g, '<=').replace(/[≈]/g, '~')
     .replace(/[×]/g, 'x').replace(/[–—]/g, '-')
   const esc = (text) => clean(text).replace(/[\\()]/g, '\\$&')
-  const add = (x, yy, size, text, font = 'F1') => ops.push(`BT /${font} ${size} Tf ${x} ${yy} Td (${esc(text)}) Tj ET`)
+  const add = (x, yy, size, text, font = 'F1') => ops.push(`0 0 0 rg BT /${font} ${size} Tf ${x} ${yy} Td (${esc(text)}) Tj ET`)
+  const addCover = (x, yy, size, text, font = 'F2') => ops.push(`0.93 0.91 0.84 rg BT /${font} ${size} Tf ${x} ${yy} Td (${esc(text)}) Tj ET`)
+  const addCoverCentered = (yy, size, text, font = 'F2') => {
+    const approxWidth = clean(text).length * size * 0.52
+    addCover(Math.max(40, (pageW - approxWidth) / 2), yy, size, text, font)
+  }
   const line = (x1, yy, x2) => ops.push(`0.84 0.84 0.80 RG ${x1} ${yy} ${x2 - x1} 0.6 re S`)
   const newPage = () => {
     add(left, 810, 8, 'EKOHUS HABITAT | Dossier Tecnico', 'F2')
@@ -73,12 +78,8 @@ function buildPdf({ isCa, cp, result }) {
 
   // Cover / resumen dinamico
   ops.push('0.23 0.31 0.24 rg 0 0 595 842 re f')
-  add(160, 600, 28, 'EKOHUS HABITAT', 'F2')
-  add(165, 565, 12, isCa ? 'CONSTRUIM CONFORT. CREEM FUTUR.' : 'CONSTRUIMOS CONFORT. CREAMOS FUTURO.')
-  add(196, 505, 20, 'DOSSIER TECNICO', 'F2')
-  add(210, 475, 14, `${isCa ? 'Habitatge' : 'Vivienda'} de ${result.surface} m2`)
-  add(202, 445, 12, isCa ? 'Pressupost CLAU EN MA' : 'Presupuesto LLAVE EN MANO')
-  add(205, 95, 10, 'www.ekohushabitat.com')
+  const coverPlace = `${result.ref.cp || cp || '-'}${result.ref.place ? ' ' + result.ref.place : ''}`
+  addCoverCentered(421, 20, `Presupuesto para una casa en ${coverPlace} de ${result.surface} m2.`)
   pages.push(ops.splice(0, ops.length).join('\n')); y = 780
 
   heading('Resumen de Inversion')
